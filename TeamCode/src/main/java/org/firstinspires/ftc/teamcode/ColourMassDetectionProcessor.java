@@ -30,8 +30,8 @@ import java.util.function.DoubleSupplier;
 
 public class ColourMassDetectionProcessor implements VisionProcessor, CameraStreamSource {
     private final DoubleSupplier minArea, left, right;
-    private final Scalar upper; // lower bounds for masking
-    private final Scalar lower; // upper bounds for masking
+    private final Scalar lower; // lower bounds for masking
+    private final Scalar upper; // upper bounds for masking
     private final TextPaint textPaint;
     private final Paint linePaint;
     private final ArrayList<MatOfPoint> contours;
@@ -208,10 +208,10 @@ public class ColourMassDetectionProcessor implements VisionProcessor, CameraStre
         // this method draws the rectangle around the largest contour and puts the current prop position into that rectangle
         // you don't need to call it
 
-//		for (MatOfPoint contour : contours) {
-//			Rect rect = Imgproc.boundingRect(contour);
-//			canvas.drawLines(new float[]{rect.x * scaleBmpPxToCanvasPx, rect.y * scaleBmpPxToCanvasPx, (rect.x + rect.width) * scaleBmpPxToCanvasPx, (rect.y + rect.height) * scaleBmpPxToCanvasPx}, textPaint);
-//		}
+		for (MatOfPoint contour : contours) {
+			Rect rect = Imgproc.boundingRect(contour);
+			canvas.drawLines(new float[]{rect.x * scaleBmpPxToCanvasPx, rect.y * scaleBmpPxToCanvasPx, (rect.x + rect.width) * scaleBmpPxToCanvasPx, (rect.y + rect.height) * scaleBmpPxToCanvasPx}, textPaint);
+		}
 
         // if the contour exists, draw a rectangle around it and put its position in the middle of the rectangle
         if (largestContour != null) {

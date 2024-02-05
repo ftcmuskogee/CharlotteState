@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -9,7 +8,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
  // remove this line to have this show up on your robot
 @Autonomous
-public class ColourMassDetectionOpMode extends OpMode {
+public class ColourMassDetectionOpModeRed extends OpMode {
     private VisionPortal visionPortal;
     private ColourMassDetectionProcessor colourMassDetectionProcessor;
 
@@ -28,7 +27,7 @@ public class ColourMassDetectionOpMode extends OpMode {
         // and experiment to fine tune it for blue
         Scalar lower = new Scalar(150, 100, 100); // the lower hsv threshold for your detection
         Scalar upper = new Scalar(180, 255, 255); // the upper hsv threshold for your detection
-        double minArea = 100; // the minimum area for the detection to consider for your prop
+        double minArea = 90; // the minimum area for the detection to consider for your prop
 /*** up min area value incase the distance is limited - cause it sees it up close but not far ***/
         colourMassDetectionProcessor = new ColourMassDetectionProcessor(
                 lower,
