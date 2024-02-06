@@ -1,15 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
 
 // remove this line to have this show up on your robot
-@Autonomous
-public class ColourMassDetectionOpModeBlue extends OpMode {
+@Autonomous(name = "BLUE Back", group = "Autonomous Main")
+public class ColourMassDetectionOpModeBlue extends LinearOpMode {
    private VisionPortal visionPortal;
    private ColourMassDetectionProcessor colourMassDetectionProcessor;
 
@@ -18,8 +22,9 @@ public class ColourMassDetectionOpModeBlue extends OpMode {
     * <p>
     * This method will be called once, when the INIT button is pressed.
     */
+
    @Override
-   public void init() {
+   public void runOpMode() {
        // the current range set by lower and upper is the full range
        // HSV takes the form: (HUE, SATURATION, VALUE)
        // which means to select our colour, only need to change HUE
@@ -47,7 +52,6 @@ public class ColourMassDetectionOpModeBlue extends OpMode {
        // or how to manually edit the exposure and gain, to account for different lighting conditions
        // these may be extra features for you to work on to ensure that your robot performs
        // consistently, even in different environments
-   }
 
    /**
     * User-defined init_loop method
@@ -58,13 +62,16 @@ public class ColourMassDetectionOpModeBlue extends OpMode {
     * <p>
     * This method is optional. By default, this method takes no action.
     */
-   @Override
-   public void init_loop() {
+   IdontWannaDie robot = new IdontWannaDie();
+   robot.init(hardwareMap);
+   while (!isStarted() && !isStopRequested())
+   {
        telemetry.addData("Currently Recorded Position", colourMassDetectionProcessor.getRecordedPropPosition());
        telemetry.addData("Camera State", visionPortal.getCameraState());
        telemetry.addData("Currently Detected Mass Center", "x: " + colourMassDetectionProcessor.getLargestContourX() + ", y: " + colourMassDetectionProcessor.getLargestContourY());
        telemetry.addData("Currently Detected Mass Area", colourMassDetectionProcessor.getLargestContourArea());
    }
+
 
    /**
     * User-defined start method
@@ -75,8 +82,6 @@ public class ColourMassDetectionOpModeBlue extends OpMode {
     * <p>
     * Example usage: Starting another thread.
     */
-   @Override
-   public void start() {
        // shuts down the camera once the match starts, we dont need to look any more
        if (visionPortal.getCameraState() == VisionPortal.CameraState.STREAMING) {
            visionPortal.stopLiveView();
@@ -92,45 +97,145 @@ public class ColourMassDetectionOpModeBlue extends OpMode {
            recordedPropPosition = ColourMassDetectionProcessor.PropPositions.MIDDLE;
        }
 
+       SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+       Pose2d startPose = new Pose2d(35, 60, Math.toRadians(270));
+       drive.setPoseEstimate(startPose);
+/**MID**/
+       //middle forward
+       TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
+               .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+       //back,strafe
+       TrajectorySequence Shrike = drive.trajectorySequenceBuilder(Vietnam.end())
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+       /**RIGHT**/
+       //right forward, strafe
+       TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
+               .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(25, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+       //little back, strafe
+       TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
+               .lineToConstantHeading(new Vector2d(25, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+       /**left**/
+       //left forward, strafe
+       TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
+               .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(48, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+       //little back, strafe
+       TrajectorySequence Eagle = drive.trajectorySequenceBuilder(America.end())
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(50, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(67, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
        // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
        switch (recordedPropPosition) {
            case LEFT:
-               // code to do if we saw the prop on the left
+               telemetry.addLine("left");
+               //close
+               //robot.CL(0);
+               //robot.CR(.5);
+               sleep(500);
+               //wrist down
+               robot.W(0.01);
+
+               sleep(1000);
+               robot.UP(.03);
+               sleep(500);
+               //forward
+               //strafe left
+               drive.followTrajectorySequence(America);
+               //open left claw
+               robot.CR(0);
+               //back alittle, strafe
+               drive.followTrajectorySequence(Eagle);
+               sleep(500);
+               //drop yelow
+               robot.CL(.5);
                break;
            case UNFOUND: // we can also just add the unfound case here to do fallthrough intstead of the overriding method above, whatever you prefer!
+
            case MIDDLE:
-               // code to do if we saw the prop on the middle
+               telemetry.addLine("mid");
+               //close
+               //robot.CL(0);
+               //robot.CR(.5);
+               sleep(500);
+               //wrist down
+               robot.W(0.01);
+
+               sleep(1000);
+               robot.UP(.03);
+               sleep(500);
+               //forward
+               drive.followTrajectorySequence(Vietnam);
+               //open right claw
+               robot.CR(0);
+               sleep(500);
+               robot.UP(.03);
+               sleep(500);
+               //back up
+               //strafe left
+               //go forward
+               drive.followTrajectorySequence(Shrike);
+               //drop yellow
+               robot.CL(.5);
                break;
+
            case RIGHT:
-               // code to do if we saw the prop on the right
+               telemetry.addLine("right");
+               //close
+               //robot.CL(0);
+               //robot.CR(.5);
+               sleep(500);
+               //wrist down
+               robot.W(0.01);
+
+               sleep(1000);
+               robot.UP(.03);
+               sleep(500);
+               //forward
+               //turn right
+               drive.followTrajectorySequence(Canada);
+               //open left claw
+               robot.CR(0);
+               //back alittle, strafe
+               drive.followTrajectorySequence(Goose);
+               //drop yelow
+               robot.CL(.5);
                break;
+
        }
-   }
-
-   /**
-    * User-defined loop method
-    * <p>
-    * This method will be called repeatedly during the period between when
-    * the play button is pressed and when the OpMode is stopped.
-    */
-   @Override
-   public void loop() {
-
-   }
-
-   /**
-    * User-defined stop method
-    * <p>
-    * This method will be called once, when this OpMode is stopped.
-    * <p>
-    * Your ability to control hardware from this method will be limited.
-    * <p>
-    * This method is optional. By default, this method takes no action.
-    */
-   @Override
-   public void stop() {
-       // this closes down the portal when we stop the code, its good practice!
-       colourMassDetectionProcessor.close();
-       visionPortal.close();
+       while (opModeIsActive()) {
+           // Don't burn CPU cycles busy-looping in this sample
+           sleep(5);
+       }
+       while (!isStopRequested())
+       {
+           colourMassDetectionProcessor.close();
+           visionPortal.close();
+       }
    }
 }
