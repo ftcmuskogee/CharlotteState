@@ -150,16 +150,16 @@ public class HANGMAN extends LinearOpMode {
 //5 turn so change
             //on ground
             if (gamepad2.right_bumper){
-                Wrist.setPosition(0);
+                Wrist.setPosition(0.15);
                 //.65
             }
             // backwards scoring
             if (gamepad2.left_bumper){
-                Wrist.setPosition(.75);
+                Wrist.setPosition(.22);
                 //.75  0 needs to be redifined
             }
 
-            /**SERVO NUMBERS NEED TO BE OPPOSITE**/
+             /**SERVO NUMBERS NEED TO BE OPPOSITE**/
 
             if (gamepad2.left_trigger > 0.1) {
                 ClawL.setPosition(.52);

@@ -121,13 +121,14 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(25, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+               .lineToConstantHeading(new Vector2d(29, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .turn(Math.toRadians(45))
                .build();
        //little back, strafe
        TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-               .lineToConstantHeading(new Vector2d(25, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
-                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .turn(Math.toRadians(-45))
                .waitSeconds(1)
                .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
@@ -154,12 +155,13 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
        switch (recordedPropPosition) {
            case LEFT:
                telemetry.addLine("left");
+               robot.W(0.25);
                //close
                //robot.CL(0);
                //robot.CR(.5);
                sleep(500);
                //wrist down
-               robot.W(0.01);
+               robot.W(0.22);
 
                sleep(1000);
                robot.UP(.03);
@@ -175,16 +177,16 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                //drop yelow
                robot.CL(.5);
                break;
-           case UNFOUND: // we can also just add the unfound case here to do fallthrough intstead of the overriding method above, whatever you prefer!
-
+           
            case MIDDLE:
                telemetry.addLine("mid");
+               robot.W(0.25);
                //close
                //robot.CL(0);
                //robot.CR(.5);
                sleep(500);
                //wrist down
-               robot.W(0.01);
+               robot.W(0.22);
 
                sleep(1000);
                robot.UP(.03);
@@ -206,12 +208,13 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
 
            case RIGHT:
                telemetry.addLine("right");
+               robot.W(0.25);
                //close
                //robot.CL(0);
                //robot.CR(.5);
                sleep(500);
                //wrist down
-               robot.W(0.01);
+               robot.W(0.22);
 
                sleep(1000);
                robot.UP(.03);
