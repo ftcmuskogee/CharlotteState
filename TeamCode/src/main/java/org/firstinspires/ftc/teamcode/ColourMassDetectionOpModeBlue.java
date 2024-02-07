@@ -177,7 +177,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                //drop yelow
                robot.CL(.5);
                break;
-           
+
            case MIDDLE:
                telemetry.addLine("mid");
                robot.W(0.25);
