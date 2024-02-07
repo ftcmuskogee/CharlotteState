@@ -142,6 +142,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(48, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .build();
+
        //little back, strafe
        TrajectorySequence Eagle = drive.trajectorySequenceBuilder(America.end())
                .waitSeconds(1)

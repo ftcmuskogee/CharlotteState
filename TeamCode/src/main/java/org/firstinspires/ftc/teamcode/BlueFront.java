@@ -129,7 +129,6 @@ public class BlueFront extends LinearOpMode {
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
         switch (recordedPropPosition) {
             case LEFT:
-                telemetry.addLine("right");
                 robot.W(0.25);
                 //close
                 robot.CL(0);
@@ -151,7 +150,6 @@ public class BlueFront extends LinearOpMode {
             case UNFOUND: // we can also just add the unfound case here to do fallthrough intstead of the overriding method above, whatever you prefer!
 
             case MIDDLE:
-                telemetry.addLine("mid");
                 robot.W(0.25);
                 //close
                 robot.CL(0);
@@ -174,7 +172,6 @@ public class BlueFront extends LinearOpMode {
                 break;
 
             case RIGHT:
-                telemetry.addLine("left");
                 //close
                 robot.CL(0);
                 robot.CR(.5);

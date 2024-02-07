@@ -98,39 +98,53 @@ public class RedFront extends LinearOpMode {
         }
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(35, 60, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(-35, -60, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
-        /**MID**/
+/**MID**/
         //middle forward
         TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, 35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         /**left**/
-        //right forward, strafe
+        //left forward, strafe
         TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-35, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(-25, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-20, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
         /**right**/
-        //left forward, strafe
+        //right forward, strafe
         TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(-47, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-47, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
         switch (recordedPropPosition) {
             case LEFT:
-                telemetry.addLine("right");
-                robot.W(0.25);
+                //close
+                robot.CL(0);
+                robot.CR(.5);
+                sleep(500);
+                //wrist down
+                robot.W(0.01);
+                sleep(1000);
+                robot.UP(.03);
+                sleep(500);
+                //forward
+                //turn right
+                drive.followTrajectorySequence(Canada);
+                //open left claw
+                robot.CR(0);
+                //drop yelow
+                robot.CL(.5);robot.W(0.25);
                 //close
                 robot.CL(0);
                 robot.CR(.5);
@@ -148,11 +162,8 @@ public class RedFront extends LinearOpMode {
                 //drop yelow
                 robot.CL(.5);
                 break;
-            case UNFOUND: // we can also just add the unfound case here to do fallthrough intstead of the overriding method above, whatever you prefer!
 
             case MIDDLE:
-                telemetry.addLine("mid");
-                robot.W(0.25);
                 //close
                 robot.CL(0);
                 robot.CR(.5);
@@ -174,7 +185,6 @@ public class RedFront extends LinearOpMode {
                 break;
 
             case RIGHT:
-                telemetry.addLine("left");
                 //close
                 robot.CL(0);
                 robot.CR(.5);
