@@ -70,6 +70,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
        telemetry.addData("Camera State", visionPortal.getCameraState());
        telemetry.addData("Currently Detected Mass Center", "x: " + colourMassDetectionProcessor.getLargestContourX() + ", y: " + colourMassDetectionProcessor.getLargestContourY());
        telemetry.addData("Currently Detected Mass Area", colourMassDetectionProcessor.getLargestContourArea());
+       telemetry.update();
    }
 
 
@@ -103,7 +104,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
 /**MID**/
        //middle forward
        TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-               .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+               .lineToConstantHeading(new Vector2d(35, 33.5), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .build();
        //back,strafe
@@ -112,12 +113,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
-                       SampleMecanumDrive.getAccelerationConstraint(70))
-               //has to face center of back board
-               //will replace the last line to constant heading
-               //idk if 90 is correct
-               //.lineToLinearHeading(new Pose2d(65, 37, Math.toRadians(90)))
+               .lineToLinearHeading(new Pose2d(70, 33, Math.toRadians(5)))
                .build();
 
        /**RIGHT**/
@@ -156,19 +152,19 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(50, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(67, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+               .lineToConstantHeading(new Vector2d(65, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                //.lineToLinearHeading(new Pose2d(65, 40, Math.toRadians(90)))
                // y needs to be bigger
                .build();
+
+
        // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
        switch (recordedPropPosition) {
            case LEFT:
-               robot.W(0.25);
-               sleep(500);
-               //wrist down
-               robot.W(0.22);
 
+               //wrist down
+               robot.W(1);
                sleep(1000);
                robot.UP(.03);
                sleep(500);
@@ -185,17 +181,14 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /**wrist up**/
                drive.followTrajectorySequence(Eagle);
                sleep(500);
+
                //drop yelow
                robot.CL(.5);
                break;
 
            case MIDDLE:
-               robot.W(0.25);
-
-               sleep(500);
                //wrist down
-               robot.W(0.22);
-
+               robot.W(1);
                sleep(1000);
                robot.UP(.03);
                sleep(500);
@@ -212,19 +205,18 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                //go forward
                /**wrist up**/
                drive.followTrajectorySequence(Shrike);
+               sleep(500);
+               robot.UP(1);
+               sleep(500);
                //drop yellow
                robot.CL(.5);
 
                break;
 
            case RIGHT:
-               robot.W(0.25);
-               //close
-               //robot.CL(0);
-               //robot.CR(.5);
-               sleep(500);
+
                //wrist down
-               robot.W(0.22);
+               robot.W(1);
 
                sleep(1000);
                robot.UP(.03);
