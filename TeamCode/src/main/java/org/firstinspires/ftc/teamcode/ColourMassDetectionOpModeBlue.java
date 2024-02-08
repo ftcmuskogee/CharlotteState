@@ -114,7 +114,12 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .waitSeconds(1)
                .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
+               //has to face center of back board
+               //will replace the last line to constant heading
+               //idk if 90 is correct
+               //.lineToLinearHeading(new Pose2d(65, 37, Math.toRadians(90)))
                .build();
+
        /**RIGHT**/
        //right forward, strafe
        TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
@@ -132,6 +137,8 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .waitSeconds(1)
                .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
+               //.lineToLinearHeading(new Pose2d(65, 37, Math.toRadians(90)))
+               //y needs to be smaller
                .build();
        /**left**/
        //left forward, strafe
@@ -151,15 +158,13 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .waitSeconds(1)
                .lineToConstantHeading(new Vector2d(67, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
+               //.lineToLinearHeading(new Pose2d(65, 40, Math.toRadians(90)))
+               // y needs to be bigger
                .build();
        // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
        switch (recordedPropPosition) {
            case LEFT:
-               telemetry.addLine("left");
                robot.W(0.25);
-               //close
-               //robot.CL(0);
-               //robot.CR(.5);
                sleep(500);
                //wrist down
                robot.W(0.22);
@@ -173,6 +178,11 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                //open left claw
                robot.CR(0);
                //back alittle, strafe
+               sleep(500);
+               /**needs to go up higher**/
+               robot.UP(.03);
+               sleep(500);
+               /**wrist up**/
                drive.followTrajectorySequence(Eagle);
                sleep(500);
                //drop yelow
@@ -180,11 +190,8 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                break;
 
            case MIDDLE:
-               telemetry.addLine("mid");
                robot.W(0.25);
-               //close
-               //robot.CL(0);
-               //robot.CR(.5);
+
                sleep(500);
                //wrist down
                robot.W(0.22);
@@ -197,18 +204,20 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                //open right claw
                robot.CR(0);
                sleep(500);
+               /**needs to go up higher**/
                robot.UP(.03);
                sleep(500);
                //back up
                //strafe left
                //go forward
+               /**wrist up**/
                drive.followTrajectorySequence(Shrike);
                //drop yellow
                robot.CL(.5);
+
                break;
 
            case RIGHT:
-               telemetry.addLine("right");
                robot.W(0.25);
                //close
                //robot.CL(0);
@@ -226,6 +235,11 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                //open left claw
                robot.CR(0);
                //back alittle, strafe
+               sleep(500);
+               /**needs to go up higher**/
+               robot.UP(.03);
+               sleep(500);
+               /**wrist**/
                drive.followTrajectorySequence(Goose);
                //drop yelow
                robot.CL(.5);
