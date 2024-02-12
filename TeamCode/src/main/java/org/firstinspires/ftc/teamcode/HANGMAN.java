@@ -168,8 +168,8 @@ public class HANGMAN extends LinearOpMode {
                 ClawR.setPosition(0);
             }
             else{
-                ClawL.setPosition(0);
-                ClawR.setPosition(.5);
+                ClawL.setPosition(.48);
+                ClawR.setPosition(.15);
             }
 
             if (gamepad2.x) {
