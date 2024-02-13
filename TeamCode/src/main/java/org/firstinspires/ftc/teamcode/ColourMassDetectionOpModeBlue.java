@@ -113,8 +113,18 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToLinearHeading(new Pose2d(70, 33, Math.toRadians(5)))
+               .lineToLinearHeading(new Pose2d(70, 25, Math.toRadians(0)))
                .build();
+
+       TrajectorySequence NUHUH = drive.trajectorySequenceBuilder(Shrike.end())
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(70, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+
 
        /**RIGHT**/
        //right forward, strafe
@@ -122,27 +132,34 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(29, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+               .lineToConstantHeading(new Vector2d(30, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .turn(Math.toRadians(45))
+               .lineToLinearHeading(new Pose2d(28, 38, Math.toRadians(250)))
                .build();
        //little back, strafe
        TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-               .turn(Math.toRadians(-45))
+               .lineToLinearHeading(new Pose2d(28, 36, Math.toRadians(270)))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
-                       SampleMecanumDrive.getAccelerationConstraint(70))
-               //.lineToLinearHeading(new Pose2d(65, 37, Math.toRadians(90)))
+               .lineToLinearHeading(new Pose2d(65, 20, Math.toRadians(0)))
                //y needs to be smaller
                .build();
+       TrajectorySequence YUHUH = drive.trajectorySequenceBuilder(Goose.end())
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(70, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .build();
+
        /**left**/
        //left forward, strafe
        TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
                .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(48, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+               .lineToConstantHeading(new Vector2d(45, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .build();
 
@@ -152,10 +169,16 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(50, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(65, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
-                       SampleMecanumDrive.getAccelerationConstraint(70))
-               //.lineToLinearHeading(new Pose2d(65, 40, Math.toRadians(90)))
+               .lineToLinearHeading(new Pose2d(65, 35, Math.toRadians(0)))
                // y needs to be bigger
+               .build();
+       TrajectorySequence MHM = drive.trajectorySequenceBuilder(Eagle.end())
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               .waitSeconds(1)
+               .lineToConstantHeading(new Vector2d(70, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
                .build();
 
 
@@ -181,8 +204,13 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /**wrist up**/
                drive.followTrajectorySequence(Eagle);
                sleep(500);
+               robot.UP(.05);
+               robot.Aoff();
+               sleep(500);
+               drive.followTrajectorySequence(MHM);
+               sleep(500);
 
-               //drop yelow
+               //drop yellow
                robot.CL(.5);
                break;
 
@@ -206,8 +234,12 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /**wrist up**/
                drive.followTrajectorySequence(Shrike);
                sleep(500);
-               robot.UP(1);
+               robot.UP(.05);
+               //robot.Aoff();
                sleep(500);
+               drive.followTrajectorySequence(NUHUH);
+               sleep(500);
+
                //drop yellow
                robot.CL(.5);
 
@@ -233,7 +265,14 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                sleep(500);
                /**wrist**/
                drive.followTrajectorySequence(Goose);
-               //drop yelow
+               sleep(500);
+               robot.UP(.05);
+               robot.Aoff();
+               sleep(500);
+               drive.followTrajectorySequence(YUHUH);
+               sleep(500);
+
+               //drop yellow
                robot.CL(.5);
                break;
 

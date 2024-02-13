@@ -226,7 +226,7 @@ public class IdontWannaDie {
     public void UP(double seconds) {
         double time = (seconds * 1000) + runtime.milliseconds();
         while (time > runtime.milliseconds()) {
-            ArmAngle.setPower(.0001);
+            ArmAngle.setPower(.01);
         }
     }
 
@@ -236,4 +236,5 @@ public class IdontWannaDie {
             ArmAngle.setPower(-.2);
         }
     }
+
 }
