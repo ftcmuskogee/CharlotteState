@@ -129,9 +129,9 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)
-               .lineToConstantHeading(new Vector2d(30, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+               /*.lineToConstantHeading(new Vector2d(30, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
-               .waitSeconds(1)
+               .waitSeconds(1)*/
                .lineToLinearHeading(new Pose2d(28, 38, Math.toRadians(250)))
                .build();
        //little back, strafe
@@ -218,7 +218,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /**wrist up**/
                drive.followTrajectorySequence(Shrike);
                //sleep(500);
-               robot.UP(.05);
+               robot.UP(.07);
                sleep(100);
                robot.Aoff();
                sleep(500);
