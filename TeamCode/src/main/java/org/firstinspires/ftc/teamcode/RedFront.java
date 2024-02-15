@@ -107,7 +107,19 @@ public class RedFront extends LinearOpMode {
                 .lineToConstantHeading(new Vector2d(-35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-        /**left**/
+        TrajectorySequence Shrike = drive.trajectorySequenceBuilder(Vietnam.end())
+                .lineToConstantHeading(new Vector2d(-35, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(-49, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .waitSeconds(1)
+                .lineToLinearHeading(new Pose2d(-49, -5, Math.toRadians(350)))
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(55, -10), SampleMecanumDrive.getVelocityConstraint(25, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(25))
+                .build();
+        /**right**/
         //left forward, strafe
         TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
                 .lineToConstantHeading(new Vector2d(-35, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
@@ -115,18 +127,43 @@ public class RedFront extends LinearOpMode {
                 .waitSeconds(1)
                 /*.lineToConstantHeading(new Vector2d(-23, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))*/
-                .lineToLinearHeading(new Pose2d(-33, 37, Math.toRadians(291)))
+                .lineToLinearHeading(new Pose2d(-33, -38, Math.toRadians(58)))
                 //no idea if 291 is right
                 .build();
+        TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
+                .lineToConstantHeading(new Vector2d(-43, -38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .waitSeconds(1)
+                .lineToLinearHeading(new Pose2d(-43, -5, Math.toRadians(350)))
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(55, -10), SampleMecanumDrive.getVelocityConstraint(25, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(25))
+                .build();
 
-        /**right**/
+        /**left**/
         //right forward, strafe
         TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-32, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
                 .lineToConstantHeading(new Vector2d(-45, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
+                .build();
+
+        TrajectorySequence Eagle = drive.trajectorySequenceBuilder(America.end())
+                .lineToConstantHeading(new Vector2d(-47, -45), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(-35, -45), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(-35, -9), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .waitSeconds(1)
+                .lineToLinearHeading(new Pose2d(-35, -6, Math.toRadians(350)))
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(55, -10), SampleMecanumDrive.getVelocityConstraint(20, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(20))
                 .build();
 
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
@@ -137,10 +174,13 @@ public class RedFront extends LinearOpMode {
                 //forward
                 //turn right
                 drive.followTrajectorySequence(America);
+                robot.W(1);
                 //open left claw
                 robot.CR(0);
-                //drop yelow
-                robot.CL(.5);
+                sleep(1000);
+                drive.followTrajectorySequence(Eagle);
+                sleep(500);
+                robot.CL(0.5);
                 break;
 
             case MIDDLE:
@@ -149,9 +189,12 @@ public class RedFront extends LinearOpMode {
                 //forward
                 //turn right
                 drive.followTrajectorySequence(Vietnam);
+                robot.W(1);
                 //open left claw
                 robot.CR(0);
-                //drop yelow
+                sleep(1000);
+                drive.followTrajectorySequence(Shrike);
+                sleep(500);
                 robot.CL(.5);
                 break;
 
@@ -161,10 +204,13 @@ public class RedFront extends LinearOpMode {
                 //forward
                 //turn right
                 drive.followTrajectorySequence(Canada);
+                robot.W(1);
                 //open left claw
                 robot.CR(0);
-                //drop yelow
-                robot.CL(.5);
+                sleep(1000);
+                drive.followTrajectorySequence(Goose);
+                sleep(500);
+                robot.CL(0.5);
                 break;
 
         }

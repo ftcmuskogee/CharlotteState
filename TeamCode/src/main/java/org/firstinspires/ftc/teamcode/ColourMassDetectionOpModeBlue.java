@@ -132,11 +132,13 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /*.lineToConstantHeading(new Vector2d(30, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                        SampleMecanumDrive.getAccelerationConstraint(70))
                .waitSeconds(1)*/
-               .lineToLinearHeading(new Pose2d(28, 38, Math.toRadians(250)))
+               .lineToLinearHeading(new Pose2d(30, 40, Math.toRadians(250)))
                .build();
        //little back, strafe
        TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-               .lineToLinearHeading(new Pose2d(28, 36, Math.toRadians(270)))
+               .lineToConstantHeading(new Vector2d(35, 43), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                       SampleMecanumDrive.getAccelerationConstraint(70))
+               //.lineToLinearHeading(new Pose2d(28, 36, Math.toRadians(270)))
                .waitSeconds(1)
                .lineToLinearHeading(new Pose2d(65, 20, Math.toRadians(0)))
                //y needs to be smaller
@@ -189,11 +191,11 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                sleep(500);
                /**wrist up**/
                drive.followTrajectorySequence(Eagle);
-               robot.UP(.05);
-               sleep(100);
-               robot.Aoff();
-               sleep(500);
-               drive.followTrajectorySequence(MHM);
+               //robot.UP(.05);
+               //sleep(100);
+               //robot.Aoff();
+               //sleep(500);
+               //drive.followTrajectorySequence(MHM);
                robot.CL(.5);
                sleep(500);
                break;
@@ -218,11 +220,11 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /**wrist up**/
                drive.followTrajectorySequence(Shrike);
                //sleep(500);
-               robot.UP(.09);
-               sleep(100);
-               robot.Aoff();
-               sleep(500);
-               drive.followTrajectorySequence(NUHUH);
+               //robot.UP(.09);
+               //sleep(100);
+               //robot.Aoff();
+               //sleep(500);
+               //drive.followTrajectorySequence(NUHUH);
                robot.CL(.5);
                sleep(500);
                //drop yellow
@@ -241,11 +243,11 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                sleep(500);
                /**wrist**/
                drive.followTrajectorySequence(Goose);
-               robot.UP(.05);
-               sleep(100);
-               robot.Aoff();
-               sleep(500);
-               drive.followTrajectorySequence(YUHUH);
+               //robot.UP(.05);
+               //sleep(100);
+               //robot.Aoff();
+               //sleep(500);
+               //drive.followTrajectorySequence(YUHUH);
                robot.CL(.5);
                sleep(500);
                break;
