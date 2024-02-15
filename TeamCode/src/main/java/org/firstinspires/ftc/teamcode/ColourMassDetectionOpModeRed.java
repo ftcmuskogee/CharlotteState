@@ -99,79 +99,58 @@ public class ColourMassDetectionOpModeRed extends LinearOpMode {
         }
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(35, 60, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(35, -60, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 /**MID**/
         //middle forward
         TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 33.5), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //back,strafe
         TrajectorySequence Shrike = drive.trajectorySequenceBuilder(Vietnam.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToLinearHeading(new Pose2d(70, 25, Math.toRadians(0)))
-                .build();
-
-        TrajectorySequence NUHUH = drive.trajectorySequenceBuilder(Shrike.end())
-                .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(65, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-
-
-        /**RIGHT**/
+        /**left**/
         //right forward, strafe
         TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                /*.lineToConstantHeading(new Vector2d(30, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(23, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
-                .waitSeconds(1)*/
-                .lineToLinearHeading(new Pose2d(28, 38, Math.toRadians(250)))
                 .build();
         //little back, strafe
         TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-                .lineToLinearHeading(new Pose2d(28, 36, Math.toRadians(270)))
+                .lineToConstantHeading(new Vector2d(23, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToLinearHeading(new Pose2d(65, 20, Math.toRadians(0)))
-                //y needs to be smaller
-                .build();
-        TrajectorySequence YUHUH = drive.trajectorySequenceBuilder(Goose.end())
-                .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(65, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-
-        /**left**/
+        /**right**/
         //left forward, strafe
         TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(46.5, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(48, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-
         //little back, strafe
         TrajectorySequence Eagle = drive.trajectorySequenceBuilder(America.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(50, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(48, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToLinearHeading(new Pose2d(65, 35, Math.toRadians(0)))
-                // y needs to be bigger
-                .build();
-        TrajectorySequence MHM = drive.trajectorySequenceBuilder(Eagle.end())
-                .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(65, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-
 
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
         switch (recordedPropPosition) {
@@ -189,13 +168,14 @@ public class ColourMassDetectionOpModeRed extends LinearOpMode {
                 sleep(500);
                 /**wrist up**/
                 drive.followTrajectorySequence(Eagle);
-                robot.UP(.05);
+                /*robot.UP(.05);
                 sleep(100);
                 robot.Aoff();
                 sleep(500);
                 drive.followTrajectorySequence(MHM);
                 robot.CL(.5);
-                sleep(500);
+                sleep(500);*/
+                robot.CL(.5);
                 break;
 
             case MIDDLE:
@@ -217,15 +197,16 @@ public class ColourMassDetectionOpModeRed extends LinearOpMode {
                 //go forward
                 /**wrist up**/
                 drive.followTrajectorySequence(Shrike);
-                //sleep(500);
+                /*sleep(500);
                 robot.UP(.07);
                 sleep(100);
                 robot.Aoff();
                 sleep(500);
                 drive.followTrajectorySequence(NUHUH);
                 robot.CL(.5);
-                sleep(500);
+                sleep(500);*/
                 //drop yellow
+                robot.CL(.5);
                 break;
 
             case RIGHT:
@@ -242,13 +223,14 @@ public class ColourMassDetectionOpModeRed extends LinearOpMode {
                 sleep(500);
                 /**wrist**/
                 drive.followTrajectorySequence(Goose);
-                robot.UP(.05);
+                /*robot.UP(.05);
                 sleep(100);
                 robot.Aoff();
                 sleep(500);
                 drive.followTrajectorySequence(YUHUH);
                 robot.CL(.5);
-                sleep(500);
+                sleep(500);*/
+                robot.CL(.5);
                 break;
 
         }

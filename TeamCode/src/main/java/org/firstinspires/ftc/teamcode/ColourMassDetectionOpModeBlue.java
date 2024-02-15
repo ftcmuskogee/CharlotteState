@@ -218,7 +218,7 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                /**wrist up**/
                drive.followTrajectorySequence(Shrike);
                //sleep(500);
-               robot.UP(.07);
+               robot.UP(.09);
                sleep(100);
                robot.Aoff();
                sleep(500);
@@ -229,7 +229,6 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                break;
 
            case RIGHT:
-
                //wrist down
                robot.W(1);
                sleep(1000);

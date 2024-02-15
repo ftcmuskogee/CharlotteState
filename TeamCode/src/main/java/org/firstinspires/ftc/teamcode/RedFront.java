@@ -32,7 +32,7 @@ public class RedFront extends LinearOpMode {
         // this is tuned to detect red, so you will need to experiment to fine tune it for your robot
         // and experiment to fine tune it for blue
         Scalar lower = new Scalar(150, 100, 100); // the lower hsv threshold for your detection
-        Scalar upper = new Scalar(130, 255, 255); // the upper hsv threshold for your detection
+        Scalar upper = new Scalar(180, 255, 255); // the upper hsv threshold for your detection
         double minArea = 90; // the minimum area for the detection to consider for your prop
 /*** up min area value incase the distance is limited - cause it sees it up close but not far ***/
         colourMassDetectionProcessor = new ColourMassDetectionProcessor(
@@ -70,6 +70,7 @@ public class RedFront extends LinearOpMode {
             telemetry.addData("Camera State", visionPortal.getCameraState());
             telemetry.addData("Currently Detected Mass Center", "x: " + colourMassDetectionProcessor.getLargestContourX() + ", y: " + colourMassDetectionProcessor.getLargestContourY());
             telemetry.addData("Currently Detected Mass Area", colourMassDetectionProcessor.getLargestContourArea());
+            telemetry.update();
         }
 
 
@@ -109,11 +110,13 @@ public class RedFront extends LinearOpMode {
         /**left**/
         //left forward, strafe
         TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-35, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(-20, -36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
-                        SampleMecanumDrive.getAccelerationConstraint(70))
+                /*.lineToConstantHeading(new Vector2d(-23, -37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))*/
+                .lineToLinearHeading(new Pose2d(-33, 37, Math.toRadians(291)))
+                //no idea if 291 is right
                 .build();
 
         /**right**/
@@ -122,41 +125,18 @@ public class RedFront extends LinearOpMode {
                 .lineToConstantHeading(new Vector2d(-35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(-47, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-45, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
         switch (recordedPropPosition) {
             case LEFT:
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.01);
+                robot.W(1);
                 sleep(1000);
-                robot.UP(.03);
-                sleep(500);
                 //forward
                 //turn right
-                drive.followTrajectorySequence(Canada);
-                //open left claw
-                robot.CR(0);
-                //drop yelow
-                robot.CL(.5);robot.W(0.25);
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.22);
-                sleep(1000);
-                robot.UP(.03);
-                sleep(500);
-                //forward
-                //turn right
-                drive.followTrajectorySequence(Canada);
+                drive.followTrajectorySequence(America);
                 //open left claw
                 robot.CR(0);
                 //drop yelow
@@ -164,42 +144,25 @@ public class RedFront extends LinearOpMode {
                 break;
 
             case MIDDLE:
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.01);
+                robot.W(1);
                 sleep(1000);
-                robot.UP(.03);
-                sleep(500);
                 //forward
+                //turn right
                 drive.followTrajectorySequence(Vietnam);
-                //open right claw
+                //open left claw
                 robot.CR(0);
-                sleep(500);
-                robot.UP(.03);
-                sleep(500);
-                //drop yellow
+                //drop yelow
                 robot.CL(.5);
                 break;
 
             case RIGHT:
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.01);
+                robot.W(1);
                 sleep(1000);
-                robot.UP(.03);
-                sleep(500);
                 //forward
-                //strafe left
-                drive.followTrajectorySequence(America);
+                //turn right
+                drive.followTrajectorySequence(Canada);
                 //open left claw
                 robot.CR(0);
-                sleep(500);
                 //drop yelow
                 robot.CL(.5);
                 break;

@@ -70,6 +70,7 @@ public class BlueFront extends LinearOpMode {
             telemetry.addData("Camera State", visionPortal.getCameraState());
             telemetry.addData("Currently Detected Mass Center", "x: " + colourMassDetectionProcessor.getLargestContourX() + ", y: " + colourMassDetectionProcessor.getLargestContourY());
             telemetry.addData("Currently Detected Mass Area", colourMassDetectionProcessor.getLargestContourArea());
+            telemetry.update();
         }
 
 
@@ -98,7 +99,7 @@ public class BlueFront extends LinearOpMode {
         }
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(35, 60, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(-35, 60, Math.toRadians(270));
         drive.setPoseEstimate(startPose);
 /**MID**/
         //middle forward
@@ -112,33 +113,26 @@ public class BlueFront extends LinearOpMode {
                 .lineToConstantHeading(new Vector2d(-35, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(-25, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
-                        SampleMecanumDrive.getAccelerationConstraint(70))
+                /*.lineToConstantHeading(new Vector2d(-25, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))*/
+                .lineToLinearHeading(new Pose2d(-33, 38, Math.toRadians(291)))
                 .build();
 
         /**right**/
         //left forward, strafe
         TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-35, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(-47, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-47, 38), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
         switch (recordedPropPosition) {
             case LEFT:
-                robot.W(0.25);
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.22);
+                robot.W(1);
                 sleep(1000);
-                robot.UP(.03);
-                sleep(500);
                 //forward
                 //turn right
                 drive.followTrajectorySequence(Canada);
@@ -150,43 +144,25 @@ public class BlueFront extends LinearOpMode {
             case UNFOUND: // we can also just add the unfound case here to do fallthrough intstead of the overriding method above, whatever you prefer!
 
             case MIDDLE:
-                robot.W(0.25);
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.01);
+                robot.W(1);
                 sleep(1000);
-                robot.UP(.03);
-                sleep(500);
                 //forward
+                //turn right
                 drive.followTrajectorySequence(Vietnam);
-                //open right claw
+                //open left claw
                 robot.CR(0);
-                sleep(500);
-                robot.UP(.03);
-                sleep(500);
-                //drop yellow
+                //drop yelow
                 robot.CL(.5);
                 break;
 
             case RIGHT:
-                //close
-                robot.CL(0);
-                robot.CR(.5);
-                sleep(500);
-                //wrist down
-                robot.W(0.01);
+                robot.W(1);
                 sleep(1000);
-                robot.UP(.03);
-                sleep(500);
                 //forward
-                //strafe left
+                //turn right
                 drive.followTrajectorySequence(America);
                 //open left claw
                 robot.CR(0);
-                sleep(500);
                 //drop yelow
                 robot.CL(.5);
                 break;
