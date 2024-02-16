@@ -212,8 +212,8 @@ public class ColourMassDetectionOpModeBlue extends LinearOpMode {
                robot.CR(0);
                sleep(500);
                /**needs to go up higher**/
-               robot.UP(.03);
-               sleep(500);
+               //robot.UP(.03);
+               //sleep(500);
                //back up
                //strafe left
                //go forward
