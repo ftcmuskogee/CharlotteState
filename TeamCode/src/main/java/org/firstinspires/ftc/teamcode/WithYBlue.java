@@ -12,7 +12,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
 
 // remove this line to have this show up on your robot
-@Autonomous(name = "BLUE Back", group = "Autonomous Main")
+@Autonomous(name = "WYELLOW BLUE", group = "Autonomous Main")
 public class WithYBlue extends LinearOpMode {
     private VisionPortal visionPortal;
     private ColourMassDetectionProcessor colourMassDetectionProcessor;
@@ -104,7 +104,7 @@ public class WithYBlue extends LinearOpMode {
 /**MID**/
         //middle forward
         TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 33.5), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, 34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //back,strafe
@@ -118,7 +118,12 @@ public class WithYBlue extends LinearOpMode {
 
         TrajectorySequence NUHUH = drive.trajectorySequenceBuilder(Shrike.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(81, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .build();
+        TrajectorySequence Buy = drive.trajectorySequenceBuilder(NUHUH.end())
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(75, 55), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
@@ -145,7 +150,12 @@ public class WithYBlue extends LinearOpMode {
                 .build();
         TrajectorySequence YUHUH = drive.trajectorySequenceBuilder(Goose.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(81, 18), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .build();
+        TrajectorySequence Now = drive.trajectorySequenceBuilder(YUHUH.end())
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(75, 55), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
@@ -170,7 +180,12 @@ public class WithYBlue extends LinearOpMode {
                 .build();
         TrajectorySequence MHM = drive.trajectorySequenceBuilder(Eagle.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(73, 25), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(80, 33), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                        SampleMecanumDrive.getAccelerationConstraint(70))
+                .build();
+        TrajectorySequence IG = drive.trajectorySequenceBuilder(MHM.end())
+                .waitSeconds(1)
+                .lineToConstantHeading(new Vector2d(75, 55), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
@@ -179,79 +194,69 @@ public class WithYBlue extends LinearOpMode {
         switch (recordedPropPosition) {
             case LEFT:
 
-                //wrist down
                 robot.W(1);
                 sleep(1000);
-                //forward
-                //strafe left
-                drive.followTrajectorySequence(America);
-                //open left claw
-                robot.CR(0);
-                //back alittle, strafe
-                sleep(500);
-                /**wrist up**/
-                drive.followTrajectorySequence(Eagle);
-                sleep(500);
-                robot.UP(.09);
+                robot.UP(.03);
                 sleep(100);
+                drive.followTrajectorySequence(America);
+                robot.W(1);
+                //open right claw
+                robot.CR(0);
+                sleep(3000);
                 robot.Aoff();
-                sleep(500);
+                drive.followTrajectorySequence(Eagle);
+                robot.Aoff();
                 drive.followTrajectorySequence(MHM);
                 robot.CL(.5);
                 sleep(500);
+                drive.followTrajectorySequence(IG);
+                sleep(100);
                 break;
 
             case MIDDLE:
                 //wrist down
                 robot.W(1);
                 sleep(1000);
-                //robot.UP(.03);
+                robot.UP(.03);
+                sleep(110);
+                //robot.Aoff();
                 //sleep(500);
                 //forward
                 drive.followTrajectorySequence(Vietnam);
+                robot.W(1);
                 //open right claw
                 robot.CR(0);
-                sleep(500);
-                /**needs to go up higher**/
-                //robot.UP(.03);
-                //sleep(500);
-                //back up
-                //strafe left
-                //go forward
-                /**wrist up**/
-                drive.followTrajectorySequence(Shrike);
-                sleep(500);
-                robot.UP(.09);
-                sleep(100);
+                sleep(5000);
                 robot.Aoff();
-                sleep(500);
+                drive.followTrajectorySequence(Shrike);
+                robot.Aoff();
                 drive.followTrajectorySequence(NUHUH);
                 robot.CL(.5);
                 sleep(500);
+                drive.followTrajectorySequence(Buy);
+                sleep(100);
                 //drop yellow
                 break;
 
             case RIGHT:
-                //wrist down
                 robot.W(1);
                 sleep(1000);
-                //forward
-                //turn right
+                robot.UP(.03);
+                sleep(110);
                 drive.followTrajectorySequence(Canada);
-                //open left claw
+                robot.W(1);
+                //open right claw
                 robot.CR(0);
-                //back alittle, strafe
-                sleep(500);
+                sleep(3000);
+                robot.Aoff();
                 /**wrist**/
                 drive.followTrajectorySequence(Goose);
-                sleep(500);
-                robot.UP(.09);
-                sleep(100);
                 robot.Aoff();
-                sleep(500);
                 drive.followTrajectorySequence(YUHUH);
                 robot.CL(.5);
                 sleep(500);
+                drive.followTrajectorySequence(Now);
+                sleep(100);
                 break;
 
         }

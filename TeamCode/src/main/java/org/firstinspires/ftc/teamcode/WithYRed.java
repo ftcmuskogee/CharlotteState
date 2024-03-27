@@ -12,7 +12,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
 
 // remove this line to have this show up on your robot
-@Autonomous(name = "RED Back", group = "Autonomous Main")
+@Autonomous(name = "WYELLOW RED", group = "Autonomous Main")
 public class WithYRed extends LinearOpMode {
     private VisionPortal visionPortal;
     private ColourMassDetectionProcessor colourMassDetectionProcessor;
@@ -176,7 +176,6 @@ public class WithYRed extends LinearOpMode {
         // now we can use recordedPropPosition in our auto code to modify where we place the purple and yellow pixels
         switch (recordedPropPosition) {
             case LEFT:
-
                 //wrist down
                 robot.W(1);
                 sleep(1000);
@@ -228,7 +227,6 @@ public class WithYRed extends LinearOpMode {
                 break;
 
             case RIGHT:
-
                 //wrist down
                 robot.W(1);
                 sleep(1000);
