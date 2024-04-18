@@ -119,7 +119,7 @@ public class HANGMAN extends LinearOpMode {
             } else {
                 LinAct.setPower(0);
             }
-//turn servo not positiion
+//continuous rotatioin servos run on set power not set position
             if (gamepad1.y) {
                 LinAngle.setPower(-10);
             }
