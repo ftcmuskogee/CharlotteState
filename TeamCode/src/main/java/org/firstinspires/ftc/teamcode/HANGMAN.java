@@ -139,7 +139,7 @@ public class HANGMAN extends LinearOpMode {
             // Makes variables Power1 and Power2 to their respective joystick
             double Power1 = gamepad2.right_stick_y;
             double Power2 = gamepad2.left_stick_y;
-            speed = -0.1; //.02
+            speed = -0.5; //.02
             extend = -0.2;
             // sets the power for the lifts
 
